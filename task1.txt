@@ -1,0 +1,9 @@
+1. express paket yükle
+
+2. mock data copy paste
+
+3. Endpoints
+
+/api/suppliers   -> GET
+/api/suppliers/:id  -> GET
+/api/suppliers/:id   -> DELETE
