@@ -39,4 +39,5 @@ app.delete('/api/productPhotos/:name', (req, res) => {
     })
 })
 
+
 app.listen(3000);
