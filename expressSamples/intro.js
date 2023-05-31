@@ -3,6 +3,10 @@
 const express = require('express');  //import
 const app = express(); //call
 
+const { v4 : uuidv4 } = require('uuid')
+
+var fs = require('fs');
+
 
 //body parser ile gelen datayı parse edeceğim ki body den json objesi js objesine dönüşsün
 var bodyParser = require('body-parser');
@@ -1477,10 +1481,41 @@ app.post('/api/suppliers', (req, res) => {
 })
 
 
-app.post('/api/userPhoto', (req,res) => {
+
+app.post('/api/userPhoto', (req, res) => {
+
+    //ext check
+
+    let file = req.files.photo;
+    let fileExt = file.name.substring(file.name.lastIndexOf('.'))
+
+    uploadPath = __dirname + '/img/' +  uuidv4() + fileExt;
+
+    //file.name.lastIndexOf('.')
+
+    file.mv(uploadPath, function (err) {
+
+        if (!err)
+            res.send('OK!')
+        else
+            res.status(500).json(err)
+    })
+
     
-    console.log("FILES", req.files);
-    res.send('OK!')
+
+})
+
+
+app.delete('/api/userPhoto/:name', (req,res) => {
+    fs.unlink( __dirname + '/img/' + req.params.name, function(err){
+        if(!err){
+            res.send('DELETED!')
+        }
+        else{
+           res.status(500).json(err)
+        }
+    })
+    
 })
 
 app.delete('/api/suppliers/:id', (req, res) => {
@@ -1490,6 +1525,8 @@ app.delete('/api/suppliers/:id', (req, res) => {
     res.json({ 'msg': 'Success!' });
 
 })
+
+
 
 app.listen(3000, () => {
     console.log('Express is running...');
