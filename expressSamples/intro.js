@@ -4,8 +4,23 @@ const express = require('express');  //import
 const app = express(); //call
 
 
+//body parser ile gelen datayı parse edeceğim ki body den json objesi js objesine dönüşsün
+var bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
+
 //app.get fonksiyonundaki 1. parametre endpoint url i ifade eder.
 //app.get fonksiyonundaki 2. parametre ile client tan gelen request ve clienta gidecek olan response organize edilir
+
+// parse application/json  - RAW
+app.use(bodyParser.json())
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+//body parser yerine alternatif kod
+// app.use(express.json())
+
+app.use(fileUpload())
 
 let products = [
     {
@@ -1451,10 +1466,21 @@ app.get('/api/suppliers/:id', (req, res) => {
 
 
 app.post('/api/suppliers', (req, res) => {
+    let newSupplier = {
+        companyName: req.body.companyName,
+        contactName: req.body.contactName
+    }
 
-    console.log('BODY', req.body);
+    suppliers.push(newSupplier);
 
     res.send('OK');
+})
+
+
+app.post('/api/userPhoto', (req,res) => {
+    
+    console.log("FILES", req.files);
+    res.send('OK!')
 })
 
 app.delete('/api/suppliers/:id', (req, res) => {

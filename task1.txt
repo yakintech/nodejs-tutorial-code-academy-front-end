@@ -7,3 +7,5 @@
 /api/suppliers   -> GET
 /api/suppliers/:id  -> GET
 /api/suppliers/:id   -> DELETE
+
+POSTMAN TEST
