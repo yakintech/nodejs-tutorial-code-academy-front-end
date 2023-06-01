@@ -1,0 +1,10 @@
+1) mongodb sitesine gir register ol
+2) cluster oluştur
+3) database access kısmından database user create et
+4) connection string database kısmından al
+
+
+5) mongoose package kur
+6) dataları görmek için compass indir
+https://www.mongodb.com/products/compass
+
